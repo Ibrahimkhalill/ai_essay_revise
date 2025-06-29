@@ -73,6 +73,28 @@ REST_FRAMEWORK = {
     ),
 }
 
+JAZZMIN_UI_TWEAKS = {
+    
+    "theme": "flatly",
+    "dark_mode_theme": "darkly",
+}
+JAZZMIN_SETTINGS ={
+"site_title": "Ai Essay Revise Admin",
+    "site_header": "Library",
+    "site_brand": "Ai Essay Revise",
+    "welcome_sign": "Welcome to the Ai Essay Revise",
+    "copyright": "Ai Essay Revise",
+    "show_ui_builder" : True
+
+
+
+
+
+
+}
+
+# JAZZMIN_SETTINGS["show_ui_builder"] = True
+
 from datetime import timedelta
 
 SIMPLE_JWT = {
@@ -109,6 +131,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+      
     }
 }
 

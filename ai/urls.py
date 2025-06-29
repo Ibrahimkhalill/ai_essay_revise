@@ -1,11 +1,11 @@
 
 from django.urls import path
-from .views import analyze_essay, upload_file, download_revision, health_check , compare_documents
+from .views import analyze_essay_view,change_essay_type_view , compare_essays_view
 
 urlpatterns = [
-    path('analyze/', analyze_essay),
-    path('upload/', upload_file),
-    path('download/', download_revision),
-    path('health/', health_check),
-    path('compare_documents/', compare_documents),
+    path('analyze/', change_essay_type_view),
+    # path('download/', download_revision),
+    path('analyze_essay_view/', analyze_essay_view),
+   
+    path('compare_documents/', compare_essays_view),
 ]

@@ -11,7 +11,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('role', 'is_staff', 'is_active', 'is_superuser')  # Added 'role' to filters
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'role')}),  # Added 'role'
+
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (
@@ -37,9 +37,9 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'first_name', 'last_name','phone_number')
     search_fields = ('user__email', 'first_name', 'phone_number')
 
-@admin.register(OTP)
-class OTPAdmin(admin.ModelAdmin):
-    list_display = ('email', 'otp', 'created_at', 'attempts')
-    list_filter = ('created_at',)
-    search_fields = ('email', 'otp')
+# @admin.register(OTP)
+# class OTPAdmin(admin.ModelAdmin):
+#     list_display = ('email', 'otp', 'created_at', 'attempts')
+#     list_filter = ('created_at',)
+#     search_fields = ('email', 'otp')
 

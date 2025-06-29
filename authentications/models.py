@@ -43,6 +43,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.email} ({self.role})"
+    class Meta:
+        verbose_name = "User"
+        verbose_name_plural = "Users"
 
 class OTP(models.Model):
     email = models.EmailField()

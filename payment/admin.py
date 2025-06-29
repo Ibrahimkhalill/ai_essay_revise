@@ -28,4 +28,4 @@ class DescriptionAdmin(admin.ModelAdmin):
 # Registering the models with the custom admin views
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(SubscriptionPlan, SubscriptionPlanAdmin)
-admin.site.register(Description, DescriptionAdmin)
+# admin.site.register(Description, DescriptionAdmin)
