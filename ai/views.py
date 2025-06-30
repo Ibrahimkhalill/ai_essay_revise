@@ -804,19 +804,16 @@ try:
         # It's safer to use 'gemini-1.5-flash' or 'gemini-pro' for general access.
         # Let's try to get gemini-1.5-flash and fallback to gemini-pro if not found.
         available_models = [m.name for m in genai.list_models()]
-        print("Available Gemini models:")
-        for m_name in available_models:
-            print(f"- {m_name}")
-
+       
         if 'models/gemini-1.5-flash' in available_models:
             model = genai.GenerativeModel('models/gemini-1.5-flash')
-            print("Successfully initialized model: models/gemini-1.5-flash")
+           
         elif 'gemini-1.5-flash' in available_models:
             model = genai.GenerativeModel('gemini-1.5-flash')
-            print("Successfully initialized model: gemini-1.5-flash")
+          
         elif 'models/gemini-pro' in available_models:
             model = genai.GenerativeModel('models/gemini-pro')
-            print("Successfully initialized model: models/gemini-pro (as fallback)")
+           
         else:
             print("Warning: Neither 'gemini-1.5-flash' nor 'gemini-pro' found. AI features will be limited.")
 

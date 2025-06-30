@@ -14,6 +14,8 @@ from .serializers import (
     OTPSerializer,
     LoginSerializer
 )
+from django.db.models import ProtectedError
+
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -282,3 +284,25 @@ def change_password(request):
     user.save()
 
     return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_user(request):
+    user = request.user  # ✅ Proper way to access logged-in user
+
+    try:
+        user.delete()
+        return Response({"message": "User deleted successfully"}, status=status.HTTP_200_OK)
+    
+    except ProtectedError:
+        return Response(
+            {"error": "Cannot delete user because of related protected data."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    except Exception as e:
+        return Response(
+            {"error": f"Unexpected error: {str(e)}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR)

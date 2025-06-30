@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from authentications.models import UserProfile
+from datetime import timedelta
 
 # Subscription Plan Model
 class SubscriptionPlan(models.Model):
@@ -32,16 +33,16 @@ class Description(models.Model):
 # Subscription Model
 class Subscription(models.Model):
     STATUS_CHOICES = [
-        ('free', 'Free'),
-        ('premium', 'Premium'),
-    ]
+    ('free', 'Free'),
+    ('premium', 'Premium'),
+    ('expired', 'Expired'),  # ✅ New
+]
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscriptions')
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE, related_name='subscriptions', blank=True, null=True)  # Link to SubscriptionPlan model
     stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True)  # Stripe subscription ID
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='free')  # Free or Premium status
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    duration_days = models.PositiveIntegerField(default=30)  # default 1 month
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -53,11 +54,12 @@ class Subscription(models.Model):
     def save(self, *args, **kwargs):
         from django.utils import timezone
         if not self.end_date:
-            # Determine the end date based on the subscription duration type
             if self.plan and self.plan.duration_type == 'monthly':
-                self.end_date = timezone.now() + timezone.timedelta(days=30)
+                self.end_date = timezone.now() + timedelta(days=30)
+            elif self.plan and self.plan.duration_type == 'half_yearly':
+                self.end_date = timezone.now() + timedelta(days=180)
             elif self.plan and self.plan.duration_type == 'yearly':
-                self.end_date = timezone.now() + timezone.timedelta(days=365)
+                self.end_date = timezone.now() + timedelta(days=365)
         super().save(*args, **kwargs)
 
     def __str__(self):

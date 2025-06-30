@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'payment',
     'apscheduler',
     'corsheaders',
+    'django_apscheduler'
+    
    
 ]
 
@@ -134,6 +136,17 @@ DATABASES = {
       
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ai_essay_revise',
+#         'USER': 'postgres',
+#         'PASSWORD': 'alone',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
