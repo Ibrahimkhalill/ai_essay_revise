@@ -31,7 +31,4 @@ idna==3.4
 certifi==2023.7.22
 charset-normalizer==3.2.0
 
-# BeautifulSoup (for scrapers)
-beautifulsoup4==4.13.0
-soupsieve==2.7
-lxml==5.4.0
+
